@@ -1,0 +1,2531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My ITC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+            transition: all 0.3s ease;
+        }
+
+        /* Minimalistic Design Variables - Hero Color Scheme */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #191654;
+            --bg-accent: #ecf0f1;
+            --text-primary: #2c3e50;
+            --text-secondary: #7f8c8d;
+            --text-light: #ffffff;
+            --text-muted: #bdc3c7;
+            --accent-primary: #43C6AC;
+            --accent-secondary: #191654;
+            --hero-primary: #191654;
+            --hero-secondary: #43C6AC;
+            --hero-gradient: linear-gradient(135deg, #191654 0%, #43C6AC 100%);
+            --card-gradient: linear-gradient(135deg, rgba(25, 22, 84, 0.1) 0%, rgba(67, 198, 172, 0.1) 100%);
+            --card-hover-gradient: linear-gradient(135deg, rgba(25, 22, 84, 0.15) 0%, rgba(67, 198, 172, 0.15) 100%);
+            --border-color: #e1e8ed;
+            --border-light: #f1f5f9;
+            --card-bg: #ffffff;
+            --nav-bg: rgba(25, 22, 84, 0.95);
+            --shadow-sm: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+            --shadow-hero: 0 25px 50px -12px rgba(25, 22, 84, 0.25);
+            --radius-sm: 0.375rem;
+            --radius-md: 0.5rem;
+            --radius-lg: 0.75rem;
+            --radius-xl: 1rem;
+            --radius-2xl: 1.5rem;
+            --gradient-primary: var(--hero-gradient);
+            --gradient-secondary: linear-gradient(135deg, #2c3e50 0%, #bdc3c7 100%);
+            --gradient-tertiary: linear-gradient(135deg, #414345 0%, #232526 100%);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #232526;
+            --bg-secondary: #2c3e50;
+            --bg-tertiary: #191654;
+            --bg-accent: #34495e;
+            --text-primary: #ecf0f1;
+            --text-secondary: #bdc3c7;
+            --text-light: #ffffff;
+            --text-muted: #95a5a6;
+            --accent-primary: #43C6AC;
+            --accent-secondary: #191654;
+            --hero-primary: #191654;
+            --hero-secondary: #43C6AC;
+            --hero-gradient: linear-gradient(135deg, #191654 0%, #43C6AC 100%);
+            --card-gradient: linear-gradient(135deg, rgba(25, 22, 84, 0.2) 0%, rgba(67, 198, 172, 0.2) 100%);
+            --card-hover-gradient: linear-gradient(135deg, rgba(25, 22, 84, 0.3) 0%, rgba(67, 198, 172, 0.3) 100%);
+            --border-color: #34495e;
+            --border-light: #414345;
+            --card-bg: #2c3e50;
+            --nav-bg: rgba(25, 22, 84, 0.95);
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Simplified Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--nav-bg);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            color: var(--accent-primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-primary);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--border-color);
+            border-radius: 25px;
+            padding: 0.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-primary);
+            border-color: var(--accent-primary);
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-toggle:hover {
+            color: var(--accent-primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--bg-tertiary);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            opacity: 0;
+            transform: translateY(-100%);
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--accent-primary);
+            transform: scale(1.1);
+        }
+
+        .mobile-menu-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        /* Stable Hero Section with Hero Color Scheme */
+        .hero {
+            height: 100vh;
+            background: var(--hero-gradient);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(67, 198, 172, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(25, 22, 84, 0.3) 0%, transparent 50%),
+                linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.1) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+            animation: fadeInUp 1s ease-out;
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: var(--shadow-hero);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            color: white;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            background: var(--hero-gradient);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.3);
+            font-weight: 600;
+            font-size: 1.1rem;
+            border: 2px solid transparent;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(67, 198, 172, 0.4);
+        }
+
+        /* Simplified Stats Section */
+        .stats {
+            padding: 4rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 2rem;
+            background: var(--card-bg);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.15);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(67, 198, 172, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-item:hover::before {
+            opacity: 1;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hero);
+            border-color: var(--accent-primary);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--hero-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Simplified Features Section */
+        .features {
+            padding: 4rem 0;
+            background: var(--bg-primary);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-primary);
+            font-weight: 700;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            background: var(--card-bg);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.9) 100%);
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(67, 198, 172, 0.2);
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hero);
+            border-color: var(--accent-primary);
+        }
+
+        [data-theme="dark"] .feature-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 25%, #475569 100%);
+            border: 1px solid rgba(67, 198, 172, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .feature-card:hover {
+            background: linear-gradient(135deg, #334155 0%, #475569 25%, #64748b 100%);
+            box-shadow: 0 25px 50px rgba(67, 198, 172, 0.15);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--hero-gradient);
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.3);
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Image Showcase Section */
+        .image-showcase {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .showcase-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 50%, rgba(241, 245, 249, 0.95) 100%);
+            border-radius: 24px;
+            border: 1px solid rgba(67, 198, 172, 0.25);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 12px 32px rgba(67, 198, 172, 0.15);
+            padding: 3rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .showcase-item:hover::before {
+            opacity: 1;
+        }
+
+        .showcase-item:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-hero);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 50%, rgba(241, 245, 249, 0.98) 100%);
+            border-color: var(--accent-primary);
+        }
+
+        [data-theme="dark"] .showcase-item {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 25%, #334155 100%);
+            border: 1px solid rgba(67, 198, 172, 0.3);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="dark"] .showcase-item:hover {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 25%, #475569 100%);
+            box-shadow: 0 20px 48px rgba(67, 198, 172, 0.2);
+        }
+
+        .showcase-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: var(--hero-gradient);
+            border-radius: 20px;
+            color: white;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.3);
+        }
+
+        .showcase-item h3 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            position: relative;
+            z-index: 2;
+        }
+
+        .showcase-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Research Credibility Section */
+        .credibility {
+            padding: 6rem 0;
+            background: var(--bg-secondary);
+        }
+
+        .credibility-content {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .credibility h2 {
+            font-size: 2.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .credibility p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .award-item {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 50%, rgba(241, 245, 249, 0.95) 100%);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(67, 198, 172, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.12);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .award-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .award-item:hover::before {
+            opacity: 1;
+        }
+
+        .award-item:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-hero);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 50%, rgba(241, 245, 249, 0.98) 100%);
+            border-color: var(--accent-primary);
+        }
+
+        [data-theme="dark"] .award-item {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%);
+            border: 1px solid rgba(67, 198, 172, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        [data-theme="dark"] .award-item:hover {
+            background: linear-gradient(135deg, #334155 0%, #475569 50%, #64748b 100%);
+            box-shadow: 0 15px 35px rgba(67, 198, 172, 0.15);
+        }
+
+        .award-icon {
+            font-size: 3rem;
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .award-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .award-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .methodology-badges {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: var(--hero-gradient);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(67, 198, 172, 0.3);
+        }
+
+        .badge:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.4);
+        }
+
+        /* Team Section */
+        .team {
+            padding: 6rem 0;
+            background: var(--bg-primary);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-member {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.95) 30%, rgba(241, 245, 249, 0.95) 100%);
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(67, 198, 172, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(67, 198, 172, 0.15);
+            position: relative;
+        }
+
+        .team-member::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--card-gradient);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 1;
+        }
+
+        .team-member:hover::before {
+            opacity: 1;
+        }
+
+        .team-member:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: var(--shadow-hero);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 30%, rgba(236, 254, 255, 0.98) 100%);
+            border-color: var(--accent-primary);
+        }
+
+        [data-theme="dark"] .team-member {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 30%, #475569 100%);
+            border: 1px solid rgba(67, 198, 172, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        [data-theme="dark"] .team-member:hover {
+            background: linear-gradient(135deg, #334155 0%, #475569 30%, #64748b 100%);
+            box-shadow: 0 20px 45px rgba(67, 198, 172, 0.2);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover img {
+            transform: scale(1.05);
+        }
+
+        .team-info {
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-info h3 {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .team-info .role {
+            color: var(--accent-blue);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .team-info p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        /* Project Showcase */
+        .showcase {
+            padding: 6rem 0;
+            background: 
+                linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 41, 59, 0.9) 100%),
+                url('https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop') center/cover no-repeat fixed;
+            color: white;
+            position: relative;
+        }
+
+        .showcase::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.3);
+            backdrop-filter: blur(1px);
+        }
+
+        .showcase-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .showcase-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #06b6d4, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .showcase-text p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.7;
+        }
+
+        .showcase-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .metric {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #10b981;
+        }
+
+        .showcase-visual {
+            position: relative;
+        }
+
+        .project-preview {
+            background: rgba(255, 255, 255, 0.15);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 0 8px 25px rgba(67, 198, 172, 0.2);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 6rem 0;
+            background: 
+                linear-gradient(135deg, rgba(8, 145, 178, 0.9), rgba(14, 116, 144, 0.9)),
+                url('https://images.pexels.com/photos/3184431/pexels-photo-3184431.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop') center/cover no-repeat fixed;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(8, 145, 178, 0.1);
+        }
+
+        .cta-section .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-tertiary);
+            color: var(--text-light);
+            padding: 3rem 0 1rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #06b6d4;
+            font-weight: 600;
+        }
+
+        .footer-section p, .footer-section a {
+            color: #94a3b8;
+            text-decoration: none;
+            line-height: 1.6;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #06b6d4;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 45px;
+            height: 45px;
+            background: rgba(6, 182, 212, 0.1);
+            border: 2px solid rgba(6, 182, 212, 0.3);
+            border-radius: 50%;
+            color: #06b6d4;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: #06b6d4;
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(6, 182, 212, 0.3);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .showcase-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .awards-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+
+            .methodology-badges {
+                gap: 0.5rem;
+            }
+
+            .badge {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .social-links {
+                gap: 0.5rem;
+            }
+
+            .showcase-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .showcase-item {
+                padding: 2rem 1.5rem;
+            }
+
+            .showcase-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            .team-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            /* Disable parallax on mobile for performance */
+            .hero,
+            .showcase,
+            .cta-section {
+                background-attachment: scroll !important;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* High contrast mode support */
+        @media (prefers-contrast: high) {
+            .feature-card {
+                border: 2px solid var(--text-primary);
+            }
+            
+            .cta-button {
+                border: 2px solid white;
+            }
+        }
+
+        /* Focus styles for accessibility */
+        .cta-button:focus,
+        .theme-toggle:focus,
+        .nav-links a:focus {
+            outline: 2px solid var(--accent-primary);
+            outline-offset: 2px;
+        }
+
+        /* Floating Action Button */
+        .floating-elements {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            z-index: 999;
+        }
+
+        .fab-container {
+            position: relative;
+        }
+
+        .fab {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: var(--shadow-xl);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fab:hover {
+            transform: scale(1.1);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .fab-options {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .fab-options.active {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: all;
+        }
+
+        .fab-option {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .fab-option:hover {
+            background: var(--accent-primary);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Hero Elements */
+        .hero-badge {
+            display: inline-block;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        .badge-text {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: white;
+            box-shadow: 0 4px 15px rgba(67, 198, 172, 0.2);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-bottom: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+            color: white;
+        }
+
+        .hero-stat .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-stat .stat-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        /* Enhanced Typography */
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+        }
+
+        /* Modern Card Hover Effects */
+        .modern-card {
+            background: var(--card-bg);
+            border-radius: var(--radius-2xl);
+            border: 1px solid var(--border-light);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .modern-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-quaternary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modern-card:hover::before {
+            opacity: 0.05;
+        }
+
+        .modern-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        /* Ripple Effect */
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            transform: scale(0);
+            animation: rippleAnimation 0.6s linear;
+        }
+
+        @keyframes rippleAnimation {
+            to {
+                transform: scale(2);
+                opacity: 0;
+            }
+        }
+
+        /* Loading States - Fixed for Hero Stability */
+        body:not(.loaded) {
+            overflow: hidden;
+        }
+
+        body:not(.loaded) .hero-content {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        body.loaded .hero-content {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hero-content {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+
+        .hero-content.animate-in > * {
+            animation: slideInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
+        }
+
+        .hero-content.animate-in > *:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .hero-content.animate-in > *:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        .hero-content.animate-in > *:nth-child(4) {
+            animation-delay: 0.6s;
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* WordPress Compatibility - Enhanced */
+        .wp-block-group,
+        .wp-block-columns {
+            margin: 0;
+        }
+
+        .wp-site-blocks {
+            padding: 0;
+        }
+
+        /* WordPress Block Editor Compatibility */
+        .wp-block {
+            max-width: none;
+        }
+
+        .wp-block-group__inner-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Ensure WordPress admin bar compatibility */
+        @media screen and (min-width: 783px) {
+            .admin-bar .hero {
+                margin-top: 32px;
+                height: calc(100vh - 32px);
+            }
+        }
+
+        @media screen and (max-width: 782px) {
+            .admin-bar .hero {
+                margin-top: 46px;
+                height: calc(100vh - 46px);
+            }
+        }
+
+        /* Enhanced Hover States */
+        .nav-links a {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.2), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        /* Button Enhancements */
+        .cta-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Scroll Progress Indicator */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent-primary);
+            z-index: 9999;
+            transition: width 0.1s ease;
+        }
+
+        /* Enhanced Mobile Experience */
+        @media (max-width: 768px) {
+            .hero-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .floating-elements {
+                bottom: 1rem;
+                right: 1rem;
+            }
+
+            .fab {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+
+            .fab-option {
+                width: 40px;
+                height: 40px;
+            }
+        }
+
+        /* Dark Mode Enhancements */
+        [data-theme="dark"] .badge-text {
+            background: rgba(44, 62, 80, 0.8);
+            border-color: rgba(52, 152, 219, 0.3);
+        }
+
+        [data-theme="dark"] .scroll-arrow {
+            border-color: rgba(52, 152, 219, 0.5);
+            color: var(--accent-primary);
+        }
+
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            .ripple {
+                animation: none;
+            }
+            
+            .hero-content.animate-in > * {
+                animation: none;
+            }
+            
+            .scroll-indicator {
+                animation: none;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            .floating-elements,
+            .scroll-indicator,
+            nav {
+                display: none;
+            }
+            
+            .hero {
+                height: auto;
+                background: none;
+                color: black;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="#home" class="logo">My ITC</a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                    <i class="fas fa-moon"></i>
+                </button></li>
+            </ul>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Floating Action Button -->
+    <div class="floating-elements">
+        <div class="fab-container">
+            <button class="fab" id="mainFab" aria-label="Quick actions">
+                <i class="fas fa-plus"></i>
+            </button>
+            <div class="fab-options" id="fabOptions">
+                <a href="#contact" class="fab-option" title="Contact Us">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="tel:+27000000000" class="fab-option" title="Call Us">
+                    <i class="fas fa-phone"></i>
+                </a>
+                <a href="#projects" class="fab-option" title="View Projects">
+                    <i class="fas fa-eye"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close mobile menu">
+            <i class="fas fa-times"></i>
+        </button>
+        <a href="#home" onclick="closeMobileMenu()">Home</a>
+        <a href="#about" onclick="closeMobileMenu()">About</a>
+        <a href="#services" onclick="closeMobileMenu()">Services</a>
+        <a href="#projects" onclick="closeMobileMenu()">Projects</a>
+        <a href="#contact" onclick="closeMobileMenu()">Contact</a>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark mode">
+            <i class="fas fa-moon"></i>
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home" data-wp-section="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-text">� Professional IT Solutions</span>
+                </div>
+                <h1>Educational Technology Innovation</h1>
+                <p class="hero-subtitle">
+                    Pioneering mobile assessment solutions through rigorous research methodology. 
+                    Transforming educational evaluation with our Mobile Assessment & Annotation Tool.
+                </p>
+                <div class="hero-actions">
+                    <a href="#about" class="cta-button secondary">Explore Research</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <span class="stat-number">95%</span>
+                        <span class="stat-text">User Satisfaction</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">200+</span>
+                        <span class="stat-text">Students Tested</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="stat-number">3</span>
+                        <span class="stat-text">Research Phases</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow">
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" data-wp-section="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">User Satisfaction</div>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Students Tested</div>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Research Phases</div>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="about" data-wp-section="features">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our IT Services</h2>
+            <div class="features-grid">
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Web Development</h3>
+                    <p>Custom websites and web applications built with modern technologies. From simple business sites to complex e-commerce platforms.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Applications</h3>
+                    <p>Native and cross-platform mobile apps for iOS and Android. User-friendly interfaces with robust backend systems.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3>System Integration</h3>
+                    <p>Seamless integration of various software systems and platforms to streamline your business operations and improve efficiency.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>IT Security</h3>
+                    <p>Comprehensive cybersecurity solutions to protect your business data and systems from threats and vulnerabilities.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Solutions</h3>
+                    <p>Cloud migration, hosting, and management services to help your business leverage the power of cloud computing.</p>
+                </div>
+                <div class="feature-card animate-on-scroll">
+                    <div class="feature-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>IT Support</h3>
+                    <p>24/7 technical support and maintenance services to ensure your systems run smoothly and efficiently at all times.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Showcase Section -->
+    <section class="image-showcase" id="services">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our Technology Solutions</h2>
+            <div class="showcase-grid">
+                <div class="showcase-item animate-on-scroll">
+                    <div class="showcase-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Development</h3>
+                    <p>Cross-platform mobile applications with cutting-edge assessment tools and intuitive user interfaces for educational environments.</p>
+                </div>
+                <div class="showcase-item animate-on-scroll">
+                    <div class="showcase-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Data Analytics</h3>
+                    <p>Advanced analytics and machine learning solutions for educational insights, performance tracking, and predictive modeling.</p>
+                </div>
+                <div class="showcase-item animate-on-scroll">
+                    <div class="showcase-icon">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <h3>Cloud Integration</h3>
+                    <p>Seamless cloud solutions with automated workflows, scalable infrastructure, and secure data management systems.</p>
+                </div>
+                <div class="showcase-item animate-on-scroll">
+                    <div class="showcase-icon">
+                        <i class="fas fa-paint-brush"></i>
+                    </div>
+                    <h3>UI/UX Design</h3>
+                    <p>User-centered design with accessibility compliance and intuitive interfaces specifically crafted for educational platforms.</p>
+                </div>
+                <div class="showcase-item animate-on-scroll">
+                    <div class="showcase-icon">
+                        <i class="fas fa-flask"></i>
+                    </div>
+                    <h3>Research Methodology</h3>
+                    <p>Evidence-based development processes with rigorous testing, validation frameworks, and academic peer review standards.</p>
+                </div>
+                <div class="showcase-item animate-on-scroll">
+                    <div class="showcase-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>System Integration</h3>
+                    <p>Enterprise-level integrations with existing platforms like Moodle and comprehensive educational management systems.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Credibility Section -->
+    <section class="credibility" id="credibility">
+        <div class="container">
+            <div class="credibility-content animate-on-scroll">
+                <h2>Research Excellence & Recognition</h2>
+                <p>Our work is founded on rigorous academic research methodologies and has been recognized by leading institutions and industry experts.</p>
+            </div>
+            
+            <div class="awards-grid">
+                <div class="award-item animate-on-scroll">
+                    <div class="award-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <div class="award-title">Design Science Research</div>
+                    <div class="award-description">Certified methodology adherence with peer-reviewed validation</div>
+                </div>
+                <div class="award-item animate-on-scroll">
+                    <div class="award-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="award-title">Academic Partnership</div>
+                    <div class="award-description">Collaborative research with leading educational institutions</div>
+                </div>
+                <div class="award-item animate-on-scroll">
+                    <div class="award-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="award-title">Quality Assurance</div>
+                    <div class="award-description">ISO-compliant development processes and testing standards</div>
+                </div>
+                <div class="award-item animate-on-scroll">
+                    <div class="award-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="award-title">User-Centered Design</div>
+                    <div class="award-description">Certified UX/UI practices with accessibility compliance</div>
+                </div>
+            </div>
+
+            <div class="methodology-badges animate-on-scroll">
+                <div class="badge">Design Science Research</div>
+                <div class="badge">Agile Development</div>
+                <div class="badge">User Testing</div>
+                <div class="badge">Academic Rigor</div>
+                <div class="badge">Evidence-Based</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <h2 class="section-title animate-on-scroll">Our Expert Team</h2>
+            <div class="team-grid">
+                <div class="team-member animate-on-scroll">
+                    <img src="https://images.pexels.com/photos/3184611/pexels-photo-3184611.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="Research Director" loading="lazy">
+                    <div class="team-info">
+                        <h3>Dr. Sarah Johnson</h3>
+                        <div class="role">Research Director</div>
+                        <p>Leading expert in Design Science Research methodology with 15+ years in educational technology development and academic research.</p>
+                    </div>
+                </div>
+                <div class="team-member animate-on-scroll">
+                    <img src="https://images.pexels.com/photos/3184635/pexels-photo-3184635.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="Lead Developer" loading="lazy">
+                    <div class="team-info">
+                        <h3>Michael Chen</h3>
+                        <div class="role">Lead Developer</div>
+                        <p>Full-stack developer specializing in mobile applications, cloud architecture, and educational platform integrations.</p>
+                    </div>
+                </div>
+                <div class="team-member animate-on-scroll">
+                    <img src="https://images.pexels.com/photos/3184638/pexels-photo-3184638.jpeg?auto=compress&cs=tinysrgb&w=400&h=500&fit=crop" alt="UX Research Lead" loading="lazy">
+                    <div class="team-info">
+                        <h3>Emma Rodriguez</h3>
+                        <div class="role">UX Research Lead</div>
+                        <p>User experience researcher with expertise in accessibility design and evidence-based interface development for educational tools.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Showcase -->
+    <section class="showcase" id="projects">
+        <div class="container">
+            <div class="showcase-content">
+                <div class="showcase-text animate-on-scroll">
+                    <h2>Mobile Assessment & Annotation Tool</h2>
+                    <p>Our flagship project revolutionizes educational assessment through innovative mobile technology. Developed using rigorous research methodology with comprehensive user evaluation.</p>
+                    <p>This advanced system enables educators to assess image submissions, generate submission files from source code, integrate with Moodle, and automatically email feedback to students.</p>
+                    <div class="showcase-metrics">
+                        <div class="metric">
+                            <div class="metric-value">62.4%</div>
+                            <div>User Satisfaction</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">8</div>
+                            <div>Task Scenarios</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">20min</div>
+                            <div>Evaluation Time</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">7</div>
+                            <div>Core Features</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="showcase-visual animate-on-scroll">
+                    <div class="project-preview">
+                        <h3>Key Innovations</h3>
+                        <ul style="list-style: none; padding: 0; margin-top: 1rem;">
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Symbol Recognition with Gesture Detection</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Automated Source Code to PDF Conversion</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Multi-user Annotation with Role Permissions</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Integrated Moodle Connectivity</li>
+                            <li style="padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);">✓ Automated Feedback Distribution</li>
+                            <li style="padding: 0.5rem 0;">✓ Real-time Mark Adjustment System</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container animate-on-scroll">
+            <h2>Ready to Innovate?</h2>
+            <p>Let's transform your ideas into reality through systematic research and development</p>
+            <a href="mailto:info@myitc.co.za" class="cta-button">Get Started Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>My Information Technology</h3>
+                    <p>Professional IT Solutions<br>
+                    Delivering reliable technology services for modern businesses</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Services</h3>
+                    <p>Web Development<br>
+                    Mobile Applications<br>
+                    IT Security & Support<br>
+                    Cloud Solutions</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: info@myitc.co.za<br>
+                    Phone: +27 (0) 41 XXX-XXXX<br>
+                    Location: Johannesburg, South Africa</p>
+                </div>
+            </div>
+            
+            <!-- Social Media Links -->
+            <div class="social-links">
+                <a href="#" class="social-link" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="#" class="social-link" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="mailto:info@myitc.co.za" class="social-link" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+            
+            <div style="border-top: 1px solid #334155; padding-top: 2rem; margin-top: 2rem;">
+                <p>&copy; 2024 My Information Technology Company. Professional IT solutions for modern businesses.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Immediately show hero content for stability
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.classList.add('loaded');
+            const heroContent = document.querySelector('.hero-content');
+            if (heroContent) {
+                heroContent.style.opacity = '1';
+                heroContent.style.transform = 'translateY(0)';
+            }
+        });
+
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const body = document.body;
+        const themeIcon = themeToggle.querySelector('i');
+
+        function toggleTheme() {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon
+            if (newTheme === 'dark') {
+                themeIcon.className = 'fas fa-sun';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+            }
+
+            // Add animation effect
+            body.style.transition = 'all 0.3s ease';
+            setTimeout(() => {
+                body.style.transition = '';
+            }, 300);
+        }
+
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        body.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'dark') {
+            themeIcon.className = 'fas fa-sun';
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+
+        // Mobile Menu Functionality
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+        function openMobileMenu() {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileMenu() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        mobileMenuToggle.addEventListener('click', openMobileMenu);
+        mobileMenuClose.addEventListener('click', closeMobileMenu);
+
+        // Close mobile menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                closeMobileMenu();
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced scroll animations with stagger effect
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 100); // Stagger animation
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navbar background change on scroll with smoother transition
+        let lastScrollY = window.scrollY;
+        const nav = document.querySelector('nav');
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            if (currentScrollY > 100) {
+                nav.style.background = 'rgba(15, 23, 42, 0.98)';
+                nav.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                nav.style.background = 'rgba(15, 23, 42, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+
+            // Hide/show navbar on scroll
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                nav.style.transform = 'translateY(-100%)';
+            } else {
+                nav.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollY = currentScrollY;
+        });
+
+        // Add floating animation to feature icons with random delays
+        const featureIcons = document.querySelectorAll('.feature-icon');
+        featureIcons.forEach((icon, index) => {
+            const delay = Math.random() * 2;
+            icon.style.animationDelay = `${delay}s`;
+            icon.style.animation = 'float 3s ease-in-out infinite';
+        });
+
+        // Counter animation for stats
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent);
+                const suffix = counter.textContent.replace(/[0-9.]/g, '');
+                let current = 0;
+                const increment = target / 100;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        counter.textContent = target + suffix;
+                        clearInterval(timer);
+                    } else {
+                        if (suffix === '%') {
+                            counter.textContent = Math.ceil(current * 10) / 10 + suffix;
+                        } else if (suffix === 's') {
+                            counter.textContent = Math.ceil(current) + suffix;
+                        } else {
+                            counter.textContent = Math.ceil(current) + suffix;
+                        }
+                    }
+                }, 20);
+            });
+        }
+
+        // Trigger counter animation when stats section is visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const statsSection = document.querySelector('.stats');
+        if (statsSection) {
+            statsObserver.observe(statsSection);
+        }
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Add hover effects to CTA buttons
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Add CSS for floating animation and other effects
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            
+            @keyframes slideInLeft {
+                from {
+                    opacity: 0;
+                    transform: translateX(-50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            @keyframes slideInRight {
+                from {
+                    opacity: 0;
+                    transform: translateX(50px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+            
+            .animate-on-scroll {
+                opacity: 0;
+                transform: translateY(30px);
+                transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            
+            .animate-on-scroll.visible {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            .animate-on-scroll:nth-child(even).visible {
+                animation: slideInLeft 0.6s ease-out;
+            }
+            
+            .animate-on-scroll:nth-child(odd).visible {
+                animation: slideInRight 0.6s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Keyboard navigation support
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && mobileMenu.classList.contains('active')) {
+                closeMobileMenu();
+            }
+        });
+
+        // Floating Action Button functionality
+        const mainFab = document.getElementById('mainFab');
+        const fabOptions = document.getElementById('fabOptions');
+        let fabOpen = false;
+
+        function toggleFab() {
+            fabOpen = !fabOpen;
+            fabOptions.classList.toggle('active', fabOpen);
+            
+            const icon = mainFab.querySelector('i');
+            if (fabOpen) {
+                icon.className = 'fas fa-times';
+                mainFab.style.transform = 'rotate(45deg)';
+            } else {
+                icon.className = 'fas fa-plus';
+                mainFab.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        mainFab.addEventListener('click', toggleFab);
+
+        // Close FAB when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.fab-container') && fabOpen) {
+                toggleFab();
+            }
+        });
+
+        // Smooth scroll for scroll indicator
+        const scrollIndicator = document.querySelector('.scroll-indicator');
+        if (scrollIndicator) {
+            scrollIndicator.addEventListener('click', () => {
+                const statsSection = document.querySelector('.stats');
+                if (statsSection) {
+                    statsSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        }
+
+        // Enhanced parallax effects
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const heroElements = document.querySelectorAll('.hero-content > *');
+            
+            heroElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                const yPos = -(scrolled * speed);
+                element.style.transform = `translateY(${yPos}px)`;
+            });
+        }
+
+        // Throttled scroll handler for better performance
+        let ticking = false;
+        function handleScroll() {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateParallax();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Enhanced counter animation with easing
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            
+            counters.forEach(counter => {
+                const target = parseFloat(counter.textContent);
+                const suffix = counter.textContent.replace(/[0-9.]/g, '');
+                let current = 0;
+                const duration = 2000;
+                const startTime = performance.now();
+                
+                function updateCounter(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    
+                    // Easing function (ease-out cubic)
+                    const easeOut = 1 - Math.pow(1 - progress, 3);
+                    current = target * easeOut;
+                    
+                    if (suffix === '%') {
+                        counter.textContent = Math.ceil(current * 10) / 10 + suffix;
+                    } else if (suffix === 's') {
+                        counter.textContent = Math.ceil(current) + suffix;
+                    } else {
+                        counter.textContent = Math.ceil(current) + suffix;
+                    }
+                    
+                    if (progress < 1) {
+                        requestAnimationFrame(updateCounter);
+                    }
+                }
+                
+                requestAnimationFrame(updateCounter);
+            });
+        }
+
+        // Focus management for accessibility
+        const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+        const modal = mobileMenu;
+
+        mobileMenu.addEventListener('keydown', (e) => {
+            const focusableContent = modal.querySelectorAll(focusableElements);
+            const firstFocusableElement = focusableContent[0];
+            const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusableElement) {
+                        lastFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusableElement) {
+                        firstFocusableElement.focus();
+                        e.preventDefault();
+                    }
+                }
+            }
+        });
+
+        // Image lazy loading optimization
+        const images = document.querySelectorAll('img[loading="lazy"]');
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.classList.add('loaded');
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        // Add modern micro-interactions
+        function addMicroInteractions() {
+            // Add ripple effect to buttons
+            const buttons = document.querySelectorAll('.cta-button, .theme-toggle, .fab');
+            
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+
+            // Add hover effects to cards
+            const cards = document.querySelectorAll('.feature-card, .showcase-item, .team-member');
+            
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-15px) scale(1.02)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Enhanced scroll animations with intersection observer
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('visible');
+                            
+                            // Add special effects for different elements
+                            if (entry.target.classList.contains('feature-card')) {
+                                entry.target.style.animationDelay = `${index * 150}ms`;
+                            }
+                        }, index * 100);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.animate-on-scroll').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        // Loading state management
+        function initLoadingStates() {
+            const images = document.querySelectorAll('img');
+            let loadedImages = 0;
+            
+            function checkAllImagesLoaded() {
+                loadedImages++;
+                if (loadedImages === images.length) {
+                    document.body.classList.add('loaded');
+                    
+                    // Trigger entrance animations
+                    setTimeout(() => {
+                        const heroContent = document.querySelector('.hero-content');
+                        if (heroContent) {
+                            heroContent.classList.add('animate-in');
+                        }
+                    }, 100);
+                }
+            }
+            
+            images.forEach(img => {
+                if (img.complete) {
+                    checkAllImagesLoaded();
+                } else {
+                    img.addEventListener('load', checkAllImagesLoaded);
+                    img.addEventListener('error', checkAllImagesLoaded);
+                }
+            });
+            
+            // Fallback if no images
+            if (images.length === 0) {
+                document.body.classList.add('loaded');
+            }
+        }
+
+        // Performance optimization
+        function initPerformanceOptimizations() {
+            // Lazy load images that are not in viewport
+            const imageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            imageObserver.unobserve(img);
+                        }
+                    }
+                });
+            });
+
+            document.querySelectorAll('img[data-src]').forEach(img => {
+                imageObserver.observe(img);
+            });
+
+            // Debounced resize handler
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    // Handle responsive adjustments
+                    updateParallax();
+                }, 250);
+            });
+        }
+
+        // Scroll progress indicator
+        const scrollProgress = document.getElementById('scrollProgress');
+        
+        function updateScrollProgress() {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            if (scrollProgress) {
+                scrollProgress.style.width = scrollPercent + '%';
+            }
+        }
+
+        window.addEventListener('scroll', updateScrollProgress);
+
+        // Initialize all enhancements
+        document.addEventListener('DOMContentLoaded', () => {
+            addMicroInteractions();
+            initScrollAnimations();
+            initLoadingStates();
+            initPerformanceOptimizations();
+            updateScrollProgress();
+        });
+
+        // Preload critical images
+        const criticalImages = [
+            'https://images.pexels.com/photos/3184460/pexels-photo-3184460.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop',
+            'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1920&h=1080&fit=crop'
+        ];
+
+        criticalImages.forEach(src => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = src;
+            document.head.appendChild(link);
+        });
+
+        // Add smooth transitions for images
+        const imageStyle = document.createElement('style');
+        imageStyle.textContent = `
+            img {
+                transition: opacity 0.3s ease, transform 0.3s ease;
+            }
+            
+            img:not(.loaded) {
+                opacity: 0;
+            }
+            
+            img.loaded {
+                opacity: 1;
+            }
+            
+            /* Image hover effects */
+            .showcase-item img,
+            .team-member img {
+                transition: transform 0.3s ease;
+            }
+            
+            .showcase-item:hover img,
+            .team-member:hover img {
+                transform: scale(1.05);
+            }
+        `;
+        document.head.appendChild(imageStyle);
+    </script>
+</body>
+</html>
